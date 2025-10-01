@@ -1,0 +1,341 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приглашение на свадьбу</title>
+  <link href="https://myfonts.ru/myfonts?fonts=gunny-rewritten" rel="stylesheet" type="text/css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #c8c3df;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+    }
+    /* Анимация падающих листьев */
+    .leaf {
+      position: absolute;
+      font-size: 20px;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: -1;
+    }
+    .leaf:nth-child(1) { left: 5%; animation-duration: 14s; animation-delay: 0s; font-size: 18px; }
+    .leaf:nth-child(2) { left: 15%; animation-duration: 18s; animation-delay: 1s; font-size: 22px; }
+    .leaf:nth-child(3) { left: 25%; animation-duration: 16s; animation-delay: 2s; font-size: 20px; }
+    .leaf:nth-child(4) { left: 35%; animation-duration: 20s; animation-delay: 3s; font-size: 19px; }
+    .leaf:nth-child(5) { left: 45%; animation-duration: 15s; animation-delay: 4s; font-size: 21px; }
+    .leaf:nth-child(6) { left: 55%; animation-duration: 17s; animation-delay: 5s; font-size: 20px; }
+    .leaf:nth-child(7) { left: 65%; animation-duration: 19s; animation-delay: 1.5s; font-size: 18px; }
+    .leaf:nth-child(8) { left: 75%; animation-duration: 16s; animation-delay: 2.5s; font-size: 22px; }
+    .leaf:nth-child(9) { left: 85%; animation-duration: 21s; animation-delay: 3.5s; font-size: 19px; }
+    .leaf:nth-child(10) { left: 10%; animation-duration: 18s; animation-delay: 4.5s; font-size: 20px; }
+    .leaf:nth-child(11) { left: 30%; animation-duration: 15s; animation-delay: 5.5s; font-size: 21px; }
+    .leaf:nth-child(12) { left: 50%; animation-duration: 17s; animation-delay: 6s; font-size: 18px; }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    header {
+      background: linear-gradient(to bottom, #9e89cf, #c8c3df);
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      position: relative;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      font-family: 'Georgia', serif;
+    }
+    header p {
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideIn 1s forwards;
+    }
+   
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.4s; }
+    section:nth-child(4) { animation-delay: 0.6s; }
+    section:nth-child(5) { animation-delay: 0.8s; }
+    @keyframes slideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .countdown {
+      font-size: 1.5em;
+      margin: 20px 0;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #ff8c42;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+    button:hover {
+      background-color: #e67e22;
+      transform: scale(1.05);
+    }
+    #map {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+      margin: 20px auto;
+      display: block;
+    }
+    .calendar {
+      display: inline-block;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      
+    }
+    .calendar-header {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      color: #ff8c42;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 30px);
+      gap: 5px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .calendar-day {
+      padding: 5px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .calendar-day:hover {
+      background-color: #ffe4b5;
+    }
+    .calendar-day.selected {
+      background-color: #b63838;
+      color: white;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 2em; }
+      header p { font-size: 1.2em; }
+      .calendar-grid { grid-template-columns: repeat(7, 25px); }
+      .leaf { font-size: 15px; }
+    }
+    #Marryday {
+    
+  text-align: center;
+  
+  padding: 10px; /* Универсальный отступ */
+  box-sizing: border-box; /* Учитывает padding в общей ширине */
+  width: 100%; /* Занимает всю ширину родителя */
+    }
+    #DearFriends {
+
+      border: 2px solid rgb(255, 255, 255);
+      border-radius: 100px 0 100px 0;
+      /* width: 450px;
+      height: 330px; */
+      font-size: 25px;
+      padding: 40px;
+      text-align: center;
+       font-family: 'Gunny Rewritten', sans-serif;
+    }
+      
+    
+      
+      
+    
+  </style>
+</head>
+<body>
+  <!-- Падающие листья -->
+  <div class="leaf">🍁</div>
+  <div class="leaf">🍂</div>
+  <div class="leaf">🍁</div>
+  <div class="leaf">🍂</div>
+  <div class="leaf">🍁</div>
+  <div class="leaf">🍂</div>
+  <div class="leaf">🍁</div>
+  <div class="leaf">🍂</div>
+  <div class="leaf">🍁</div>
+  <div class="leaf">🍂</div>
+  <div class="leaf">🍁</div>
+  <div class="leaf">🍂</div>
+
+  <header>
+    <h1>Анна & Иван</h1>
+    <p>Приглашаем на нашу свадьбу!</p>
+    <p>17 октября 2025, Темиртау</p>
+  </header>
+
+ 
+   <section >
+    <p id="DearFriends"><strong>Дорогие друзья и родные</strong>.<br>
+Вы получили это сообщение, а значит, мы спешим поделиться с вами радостной новостью - у нас скоро свадьба!<br>
+Мы приглашаем вас разделить с нами радость этого особенного события и стать частью нашей семейной истории. 
+Ваше присутствие сделаем наш день еще более значимым и незабываемым.</p>
+    
+  </section>
+
+ <section>
+    <h2 id="Marryday">Дата свадьбы</h2>
+    <div class="calendar" onclick="selectDate(event)">
+      <div class="calendar-header">Октябрь 2025</div>
+      <div class="calendar-grid">
+        <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
+        <div></div><div></div><div></div><div>1</div><div>2</div><div>3</div><div>4</div>
+        <div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div>
+        <div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div class="calendar-day selected">17</div><div>18</div>
+        <div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div>
+        <div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>
+      </div>
+    </div>
+  </section>
+   <section >
+    <h2>До свадьбы осталось</h2>
+    <div id="countdown" class="countdown"></div>
+  </section>
+  <section>
+    <h2>Где и когда</h2>
+    <p>Дата: 17 октября 2025</p>
+    <p>Место: Ресторан «Айзере», пр. Бауыржана Момышулы, 44, Темиртау</p>
+    <p>Время: 16:00</p>
+    <iframe id="map" src="https://yandex.ru/map-widget/v1/?um=constructor%3A90a594b1b663cfea00de6a7929d73350c4328482c80115cb5fa710e79693e961&amp;source=constructor" allowfullscreen></iframe>
+  </section>
+
+ 
+
+  <footer>
+    <p>С любовью, Анна & Иван</p>
+  </footer>
+
+  <script>
+    // Таймер обратного отсчета
+    function countdown() {
+      const weddingDate = new Date("Oct 17, 2025 16:00:00").getTime();
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML = 
+        `${days} д ${hours} ч ${minutes} м ${seconds} с`;
+
+      if (distance < 0) {
+        document.getElementById("countdown").innerHTML = "Свадьба началась!";
+      }
+    }
+    setInterval(countdown, 1000);
+    countdown(); // Инициализация
+
+    // Обработка формы RSVP
+    document.getElementById("rsvp-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const guests = document.getElementById("guests").value;
+      alert(`Спасибо, ${name}! Вы подтвердили участие для ${guests} гостей.`);
+      this.reset();
+    });
+
+    // Клик по календарю
+    function selectDate(event) {
+      const target = event.target.closest('.calendar-day');
+      if (target && target.classList.contains('selected')) {
+        alert('Свадьба 17 октября 2025! Не забудьте добавить в календарь. ❤️'); 
+      }
+    }
+
+    // Инициализация листьев (добавляем случайный поворот)
+    document.querySelectorAll('.leaf').forEach(leaf => {
+      leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
+    });
+  </script>
+</body>
+</html>
