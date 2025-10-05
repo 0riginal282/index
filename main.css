@@ -169,7 +169,7 @@
 
 /* linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)) */ 
 
-section.dear-friends-section p {
+/* section.dear-friends-section p {
 
     padding: 50px 50px;
     text-align: center;
@@ -181,4 +181,36 @@ section.dear-friends-section p {
   font-weight: 400;
   font-style: normal;
 
-}
+} */
+     /* Стили для ПК (экраны шире 768px) */
+    @media (min-width: 769px) {
+      section.dear-friends-section p {
+        font-size: 1.2em; /* Увеличенный шрифт для лучшей читаемости */
+        line-height: 1.8; /* Больший межстрочный интервал для простора */
+        padding: 20px; /* Больше отступов для аккуратного вида */
+        text-align: justify; /* Выравнивание по ширине для элегантного вида */
+        max-width: 700px; /* Ограничение ширины текста для удобства чтения */
+        margin: 0 auto; /* Центрирование текста внутри секции */
+      }
+    }
+
+    /* Стили для Android-телефонов (экраны до 768px) */
+    @media (max-width: 768px) {
+      section.dear-friends-section p {
+        font-size: 1em; /* Меньший шрифт для компактных экранов */
+        line-height: 1.5; /* Уменьшенный межстрочный интервал */
+        padding: 10px; /* Меньше отступов для экономии места */
+        text-align: left; /* Выравнивание по левому краю для удобства чтения */
+        
+      }
+    }
+
+    section.dear-friends-section p {
+    
+  font-family: "Marck Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+  padding-top: 50px;
+  font-size: 25px;
+  text-align: center;
+    }
