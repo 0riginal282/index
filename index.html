@@ -1,16 +1,11 @@
-
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Приглашение на свадьбу</title>
- 
-  <link rel="stylesheet" href="/index/main.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
-
+  <title>Приглашение на свадьбу Анны и Ивана</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="TOLYA.css">
 </head>
 <body>
   <!-- Падающие листья -->
@@ -33,18 +28,13 @@
     <p>17 октября 2025, Темиртау</p>
   </header>
 
- 
-  <div class="Latter">
-  
-    <p class= "marck-script-regular"><strong>Дорогие друзья и родные</strong>.<br>
-Вы получили это сообщение, а значит, мы спешим поделиться с вами радостной новостью - у нас скоро <strong>свадьба!</strong><br>
-Мы приглашаем вас разделить с нами радость этого особенного события и стать частью нашей семейной истории. 
-Ваше присутствие сделаем наш день еще более значимым и незабываемым.</p>
-   </div>
- 
+  <section>
+    <p class="DearFriends"><strong>Дорогие друзья и родные!</strong><br>
+      Мы рады поделиться с вами замечательной новостью — скоро наша свадьба! Приглашаем вас разделить с нами этот особенный день и стать частью нашей семейной истории. Ваше присутствие сделает наш праздник еще более теплым и незабываемым!</p>
+  </section>
 
- <section>
-    <h2 id="Marryday">Дата свадьбы</h2>
+  <section>
+    <h2>Дата свадьбы</h2>
     <div class="calendar" onclick="selectDate(event)">
       <div class="calendar-header">Октябрь 2025</div>
       <div class="calendar-grid">
@@ -57,19 +47,19 @@
       </div>
     </div>
   </section>
-   <section >
+
+  <section>
     <h2>До свадьбы осталось</h2>
     <div id="countdown" class="countdown"></div>
   </section>
+
   <section>
     <h2>Где и когда</h2>
-    <p>Дата: 17 октября 2025</p>
-    <p>Место: Ресторан «Айзере», пр. Бауыржана Момышулы, 44, Темиртау</p>
-    <p>Время: 16:00</p>
+    <p><strong>Дата:</strong> 17 октября 2025</p>
+    <p><strong>Место:</strong> Ресторан «Айзере», пр. Бауыржана Момышулы, 44, Темиртау</p>
+    <p><strong>Время:</strong> 16:00</p>
     <iframe id="map" src="https://yandex.ru/map-widget/v1/?um=constructor%3A90a594b1b663cfea00de6a7929d73350c4328482c80115cb5fa710e79693e961&amp;source=constructor" allowfullscreen></iframe>
   </section>
-
- 
 
   <footer>
     <p>С любовью, Анна & Иван</p>
@@ -91,23 +81,21 @@
         `${days} д ${hours} ч ${minutes} м ${seconds} с`;
 
       if (distance < 0) {
-        document.getElementById("countdown").innerHTML = "Свадьба началась!";
+        document.getElementById("countdown").innerHTML = "Свадьба началась! 🎉";
       }
     }
     setInterval(countdown, 1000);
-    countdown(); // Инициализация
-
-  
+    countdown();
 
     // Клик по календарю
     function selectDate(event) {
       const target = event.target.closest('.calendar-day');
       if (target && target.classList.contains('selected')) {
-        alert('Свадьба 17 октября 2025! Не забудьте добавить в календарь. ❤️'); 
+        alert('Свадьба 17 октября 2025! Не забудьте добавить в календарь. ❤️');
       }
     }
 
-    // Инициализация листьев (добавляем случайный поворот)
+    // Инициализация листьев
     document.querySelectorAll('.leaf').forEach(leaf => {
       leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
     });
