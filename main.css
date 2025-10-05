@@ -160,3 +160,25 @@
       .calendar-grid div { width: 30px; height: 30px; line-height: 30px; font-size: 0.8em; }
       section { margin: 20px; padding: 15px; }
     }
+ section.dear-friends-section {
+      background:  url('/index/mailbox3.jpg') no-repeat center center;
+      background-size: 100%;
+      position: relative;
+      height: 700px;
+     }
+
+/* linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)) */ 
+
+section.dear-friends-section p {
+
+    padding: 50px 50px;
+    text-align: center;
+    font-size: 25px;
+}
+section.dear-friends-section p {
+    
+  font-family: "Marck Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+}
