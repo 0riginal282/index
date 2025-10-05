@@ -1,11 +1,16 @@
-<!DOCTYPE html>
+
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Приглашение на свадьбу</title>
-  <link href="https://myfonts.ru/myfonts?fonts=gunny-rewritten" rel="stylesheet" type="text/css">
- <link rel="stylesheet" href="/index/main.css">
+ 
+  <link rel="stylesheet" href="/TOLYA.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <!-- Падающие листья -->
@@ -29,13 +34,14 @@
   </header>
 
  
-   <section >
-    <p class="DearFriends"><strong>Дорогие друзья и родные</strong>.<br>
-Вы получили это сообщение, а значит, мы спешим поделиться с вами радостной новостью - у нас скоро свадьба!<br>
+  <div class="Latter">
+  
+    <p class= "marck-script-regular"><strong>Дорогие друзья и родные</strong>.<br>
+Вы получили это сообщение, а значит, мы спешим поделиться с вами радостной новостью - у нас скоро <strong>свадьба!</strong><br>
 Мы приглашаем вас разделить с нами радость этого особенного события и стать частью нашей семейной истории. 
 Ваше присутствие сделаем наш день еще более значимым и незабываемым.</p>
-    
-  </section>
+   </div>
+ 
 
  <section>
     <h2 id="Marryday">Дата свадьбы</h2>
@@ -91,7 +97,7 @@
     setInterval(countdown, 1000);
     countdown(); // Инициализация
 
-    
+  
 
     // Клик по календарю
     function selectDate(event) {
