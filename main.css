@@ -8,7 +8,7 @@
       background-color: #c8c3df;
       color: #333;
       position: relative;
-      overflow-x: hidden;
+      /* overflow-x: hidden; */
       
     }
     /* Анимация падающих листьев */
